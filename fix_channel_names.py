@@ -38,19 +38,27 @@ def get_channels(origin,dest):
         for row in reader:
             writer.writerow(row)
 
-    # Modify header for T1
+    # Modify header for T1 and T2
+    headerT1 = header
+    headerT2 = header
+    for i in range(channel_start,channel_end):
+        if (headerT1[i][-2:len(headerT1[i])] == "P1"):
+            headerT1[i] = headerT1[i][:-2] + "TUTOR"
+            headerT2[i] = headerT1[i][:-2] + "TUTEE"
+        else:
+            headerT1[i] = headerT1[i][:-2] + "TUTEE"
+            headerT2[i] = headerT1[i][:-2] + "TUTOR"
 
+# TODO: Only write T1 entries
     with open(filenameT1, "w") as csvfile:
         writer = csv.writer(csvfile, delimiter = ",")
-        writer.writerow(header)
+        writer.writerow(headerT2)
         for row in reader:
             writer.writerow(row)
 
-    # Modify header for T2
-
     with open(filenameT2, "w") as csvfile:
         writer = csv.writer(csvfile, delimiter = ",")
-        writer.writerow(header)
+        writer.writerow(headerT2)
         for row in reader:
             writer.writerow(row)
 
