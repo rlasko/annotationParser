@@ -3,16 +3,22 @@
 
 import os
 import csv
+import copy
 
 def run(origin):
+    num = 1
     if (not os.path.isdir(origin)):
         print("Please input folder name")
         return
-
+    print("Finding files...")
     dest = origin + "/corrected_channels"
     if (not os.path.exists(dest)): os.mkdir(dest)
     for filename in os.listdir(origin):
+        if (os.path.isdir(origin + "/" + filename)): continue
+        print("Processing file " + str(num))
         get_channels(origin + "/" + filename, dest)
+        num += 1
+    print("Done!")
 
 def get_channels(origin,dest):
     if (os.path.isdir(origin)): return
@@ -23,13 +29,12 @@ def get_channels(origin,dest):
 
     reader = csv.reader(open(origin))
     header = next(reader)
-    print(header)
     channel_start = 6
     channel_end = len(header)
     # remove annotator name from channel heading
     for i in range(channel_start, channel_end):
         remove = header[i][::-1].find("_")
-        remove = len(header[i]) - remove + 1
+        remove = len(header[i]) - remove - 1
         header[i] = header[i][:remove]
 
     with open(filenameP, "w") as csvfile:
@@ -39,29 +44,45 @@ def get_channels(origin,dest):
             writer.writerow(row)
 
     # Modify header for T1 and T2
-    headerT1 = header
-    headerT2 = header
+    headerT1 = copy.deepcopy(header)
+    headerT2 = copy.deepcopy(header)
     for i in range(channel_start,channel_end):
         if (headerT1[i][-2:len(headerT1[i])] == "P1"):
             headerT1[i] = headerT1[i][:-2] + "TUTOR"
-            headerT2[i] = headerT1[i][:-2] + "TUTEE"
+            headerT2[i] = headerT2[i][:-2] + "TUTEE"
         else:
             headerT1[i] = headerT1[i][:-2] + "TUTEE"
-            headerT2[i] = headerT1[i][:-2] + "TUTOR"
+            headerT2[i] = headerT2[i][:-2] + "TUTOR"
 
-# TODO: Only write T1 entries
+    timeIndex = 3 # index location of time column
+    reader = csv.reader(open(origin))
+    next(reader)
+    # write T1 file
     with open(filenameT1, "w") as csvfile:
         writer = csv.writer(csvfile, delimiter = ",")
         writer.writerow(headerT2)
+        start = False
         for row in reader:
-            writer.writerow(row)
+            if row[timeIndex] == "T1 ":
+                start = True
+            elif row[timeIndex] != "": start = False
 
+            if start: writer.writerow(row[:-1])
+
+    reader = csv.reader(open(origin))
+    next(reader)
+
+    #write T2 file
     with open(filenameT2, "w") as csvfile:
         writer = csv.writer(csvfile, delimiter = ",")
         writer.writerow(headerT2)
         for row in reader:
-            writer.writerow(row)
+            if row[timeIndex] == "T2 ":
+                start = True
+            elif row[timeIndex] != "": start = False
+
+            if start: writer.writerow(row[:-1])
 
 
 
-run("/Users/RaeLasko/Documents/CMU/ArticuLab/test")
+run("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files/Tutoring_and_delivery_style_annotations")
