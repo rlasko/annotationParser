@@ -1,4 +1,4 @@
-# For eye-gaze files and head-nods and rpc
+# For eye-gaze files, head-nods, backchannel, violate social norm, and rpc
 # remove annotator name from channel headings, duplicate channels and add tutee and tutor labels
 
 import os
@@ -88,4 +88,4 @@ def get_channels(origin,dest):
 
 
 
-run("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files/violate_sn/converted")
+run("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files/backchannel/converted")
