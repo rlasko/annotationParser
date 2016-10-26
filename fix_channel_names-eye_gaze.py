@@ -1,4 +1,4 @@
-# For eye-gaze files
+# For eye-gaze files and head-nods and rpc
 # remove annotator name from channel headings, duplicate channels and add tutee and tutor labels
 
 import os
@@ -24,7 +24,6 @@ def get_channels(origin,dest):
     # variable index locations
     timeIndex = 2 # index location of time column
     channel_start = 5 # index location of first annotation column
-    channel_end = len(header)
 
     if (os.path.isdir(origin)): return
     base = os.path.splitext(os.path.basename(origin))[0]
@@ -34,6 +33,7 @@ def get_channels(origin,dest):
 
     reader = csv.reader(open(origin))
     header = next(reader)
+    channel_end = len(header)
 
     # remove annotator name from channel heading
     for i in range(channel_start, channel_end):
@@ -88,4 +88,4 @@ def get_channels(origin,dest):
 
 
 
-run("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files/Tutoring_and_delivery_style_annotations")
+run("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files/violate_sn/converted")
