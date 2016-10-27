@@ -25,7 +25,7 @@ def get_channels(origin,dest):
     timeIndex = 2 # index location of time column
     channel_start = 5 # index location of first annotation column
 
-    if (os.path.isdir(origin)): return
+    if (os.path.isdir(origin) or not origin.endswith(".csv")): return
     base = os.path.splitext(os.path.basename(origin))[0]
     filenameP = dest + "/" + base + "_channelsP"+ ".csv"
     filenameT1 = dest + "/" + base + "_channelsT1"+ ".csv"
