@@ -54,6 +54,12 @@ def remove_annotator(header,start,end):
             header[i] += person
     return header
 
+def standarize_header(header):
+    for i in range(len(header)):
+        if (header[i][-2:] == "p1" or header[i][:-2] == "p2"):
+            header[i][-2:] = "P"
+    return header
+
 def get_channels(origin,dest):
     if (os.path.isdir(origin) or not origin.endswith(".csv")): return
     base = os.path.splitext(os.path.basename(origin))[0]
@@ -68,6 +74,7 @@ def get_channels(origin,dest):
     channel_end = len(header)
 
     header = remove_annotator(header,channel_start,channel_end)
+    header = standarize_header(header)
 
     with open(filenameP, "w") as csvfile:
         writer = csv.writer(csvfile, delimiter = ",")
@@ -82,10 +89,10 @@ def get_channels(origin,dest):
     base = base[:base.find("_")] if base.find("_") != -1 else base
     sessionDictionary = dictionary()[base]
     for i in range(channel_start,channel_end):
-        if ((headerT1[i][-2:len(headerT1[i])]).lower() == "p1"):
+        if (headerT1[i][-2:].lower() == "p1"):
             headerT1[i] = headerT1[i][:-2] + sessionDictionary["P1"]["T1"]
             headerT2[i] = headerT2[i][:-2] + sessionDictionary["P1"]["T2"]
-        elif ((headerT1[i][-2:len(headerT1[i])]).lower() == "p2"):
+        elif (headerT1[i][-2:].lower() == "p2"):
             headerT1[i] = headerT1[i][:-2] + sessionDictionary["P2"]["T1"]
             headerT2[i] = headerT2[i][:-2] + sessionDictionary["P2"]["T2"]
         elif (header[i].count("_") < 1): continue
@@ -98,7 +105,7 @@ def get_channels(origin,dest):
     # write T1 file
     with open(filenameT1, "w") as csvfile:
         writer = csv.writer(csvfile, delimiter = ",")
-        writer.writerow(headerT2)
+        writer.writerow(headerT1)
         start = False
         for row in reader:
             if "T1" in row[timeIndex]:
