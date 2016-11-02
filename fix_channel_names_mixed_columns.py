@@ -16,6 +16,7 @@ def run(origin):
     for filename in os.listdir(origin):
         if (os.path.isdir(origin + "/" + filename)): continue
         print("Processing file " + str(num))
+        print(filename)
         get_channels(origin + "/" + filename, dest)
         num += 1
     print("Done!")
@@ -58,4 +59,4 @@ def get_channels(origin,dest):
                 newRow[channel_start:end_of_unique] = [""] * num_of_unique_channels # delete from old location
             writer.writerow(newRow)
 
-run("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files/mix-sd/converted")
+run("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files/mix-praise/csv-converted-manual")

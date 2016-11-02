@@ -24,7 +24,7 @@ def convert(origin,dest):
                     endTimeCorrected = xlrd.xldate.xldate_as_datetime(endTime, exFile.datemode)
                     row[1] = str(endTimeCorrected.strftime("%M:%S.%f"))
                 except: # some files are formatted weirdly
-                    print("Could not convert expected begin date field in file: " + base + " : ", row)
+                    print("Could not convert expected end date field in file: " + base + " : ", row)
             writer.writerow(row)
 
 # convert all files starting at a top level directory
@@ -40,9 +40,10 @@ def run_from_root(origin):
 
 # For testing single conversion
 def run(origin):
-    name = os.path.dirname(origin) + "/converted"
+    name = os.path.dirname(origin) + "/converted2"
     if (not os.path.exists(name)): os.mkdir(name)
     convert(origin,name)
 
 # run("/Users/RaeLasko/Documents/CMU/ArticuLab/D1S1_codes.xlsx")
-run_from_root("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files")
+# run_from_root("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files")
+run_from_root("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files/praise-temp")

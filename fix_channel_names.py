@@ -1,4 +1,5 @@
-# For Tutoring_and_delivery_style_annotations files
+# For Tutoring_and_delivery_style_annotations, head-nods, backchannel, violate social norm, and rpc files
+# Also for Mix-SE and Mix-SD and Praise after processing to fix columns
 # remove annotator name from channel headings, duplicate channels and add tutee and tutor labels
 
 import os
@@ -26,20 +27,23 @@ def find_time_index(header):
     for i in range(len(header)):
         if (("Time" in header[i] or "time" in header[i]) and
            ("Begin" not in header[i] and "End" not in header[i])):
-            print("Time index:", i)
+            # print("Time index:", i)
             return i
     print("TIME COLUMN COULD NOT BE FOUND", header)
 
 def find_channel_start(header):
     for i in range(len(header)):
-        if (header[i].count("_") == 2):
-            print("channel start:", i)
+        if (header[i].count("_") == 2 or
+        (("P1" in header[i].upper() or "P2" in header[i].upper())
+        and not ("1_" in header[i] or "2_" in header[i]))):
+            # print("channel start:", i)
             return i
     print("Error finding channel start!!", header)
     return -1
 
 def remove_annotator(header,start,end):
     for i in range(start,end):
+        if (header[i].count("_") < 2): continue
         remove = header[i][::-1].find("_")
         if (remove == -1): continue # some channels are just for notes
         remove = len(header[i]) - remove - 1
@@ -128,5 +132,7 @@ def get_channels(origin,dest):
 
             if start: writer.writerow(row[:-1])
     print()
+
+# run("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files/eye-gaze/converted")
 
 run("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files/Tutoring_and_delivery_style_annotations")
