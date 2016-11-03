@@ -135,4 +135,4 @@ def get_channels(origin,dest):
 
 # run("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files/eye-gaze/converted")
 
-run("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files/Tutoring_and_delivery_style_annotations")
+run("/Users/RaeLasko/Documents/CMU/ArticuLab/test")
