@@ -1,6 +1,7 @@
 import os
 import csv
 
+# traverse folder system
 def run_time_fix(origin):
     if (os.path.isdir(origin) == False):
         if (origin.endswith(".csv")): # make sure it's a csv
@@ -12,12 +13,12 @@ def run_time_fix(origin):
             print(os.path.dirname(origin))
             print("Changing", filename + "...")
             change_time(origin,name)
-
     else:
         for filename in os.listdir(origin):
             if filename == "_timeFix": continue # don't modify output folder
             run_time_fix(origin + "/" + filename)
 
+# convert time to seconds
 def get_second(time):
     assert(isinstance(time, str))
     assert(time.count(".") == 1 or time.count(".") == 0)
@@ -34,14 +35,14 @@ def get_second(time):
     if len(tArr) == 2:
         tArr = [0] + tArr
     seconds = int(tArr[0]) * 3600 + int(tArr[1]) * 60 + int(tArr[2]) + int(mm) / 10**len(mm)
-    # seconds = float("%3.f" % seconds)
-    seconds = float(format(seconds, ".2f"))
+    seconds = float(format(seconds, ".2f")) # truncate to two decimals
     return seconds
 
 
 def change_time(src,dst):
     base = os.path.splitext(os.path.basename(src))[0]
     filename = dst + "/" + base + "_time.csv"
+    # write new file
     with open(filename, "w") as csvfile:
         writer = csv.writer(csvfile, delimiter = ",")
         reader = csv.reader(open(src))
@@ -53,7 +54,7 @@ def change_time(src,dst):
             seconds = get_second(row[0])
             if seconds >= last:
                 last = seconds
-            else:
+            else: # account for inconsistencies - some files didn't include hour field
                 print(last, seconds)
                 seconds = 3600 + seconds
                 seconds = float(format(seconds, ".2f"))
