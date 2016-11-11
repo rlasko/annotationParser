@@ -9,6 +9,7 @@ def header_values(origin):
 
 def run(origin, headers):
     if (os.path.isdir(origin) == False):
+        print(os.path.dirname(origin))
         if (origin.endswith(".csv")): # make sure it's a csv
             headers.update(get_headers(origin))
     else:
@@ -32,5 +33,5 @@ def get_headers(src):
                 annotation.add(c)
     return annotation
 
-b = header_values("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/test")
+b = header_values("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/New Formatted Files")
 print(b)

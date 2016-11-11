@@ -116,7 +116,7 @@ def get_channels(origin,dest):
                 start = True
             elif row[timeIndex] != "" and "T1" not in row[timeIndex]: start = False
 
-            if start: writer.writerow(row[:-1])
+            if start: writer.writerow(row)
 
     reader = csv.reader(open(origin))
     next(reader)
@@ -130,10 +130,10 @@ def get_channels(origin,dest):
                 start = True
             elif row[timeIndex] != "" and "T2" not in row[timeIndex]: start = False
 
-            if start: writer.writerow(row[:-1])
+            if start: writer.writerow(row)
     print()
 
 # run("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files/eye-gaze/converted")
 
 # run("/Users/RaeLasko/Documents/CMU/ArticuLab/test")
-run("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/eye_gaze")
+run("/Users/RaeLasko/Documents/CMU/ArticuLab/Head Nods")

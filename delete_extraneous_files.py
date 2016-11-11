@@ -11,4 +11,4 @@ def delete_extraneous_files(origin):
         for filename in os.listdir(origin):
             delete_extraneous_files(origin + "/" + filename)
 
-delete_extraneous_files("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/Filtered Channels T1:T2 Only")
+delete_extraneous_files("/Users/RaeLasko/Documents/CMU/ArticuLab/Head Nods/corrected_channels")

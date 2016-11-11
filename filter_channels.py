@@ -78,3 +78,5 @@ def filter_channels(src, dst):
             newRow = [(row[i] if (i < len(row)) else "") for i in keep]
             writer.writerow(newRow)
     return
+
+run_from_root("/Users/RaeLasko/Documents/CMU/ArticuLab/Head Nods/corrected_channels")

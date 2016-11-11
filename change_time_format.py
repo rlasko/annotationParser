@@ -55,7 +55,6 @@ def change_time(src,dst):
             if seconds >= last:
                 last = seconds
             else: # account for inconsistencies - some files didn't include hour field
-                print(last, seconds)
                 seconds = 3600 + seconds
                 seconds = float(format(seconds, ".2f"))
                 last = seconds
@@ -64,4 +63,4 @@ def change_time(src,dst):
             writer.writerow(row)
     return
 
-run_time_fix("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/Time Format to Seconds")
+run_time_fix("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/New!! Time Format to Seconds")
