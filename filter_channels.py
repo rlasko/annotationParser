@@ -81,19 +81,13 @@ def filter_channels(src, dst):
         if (start_time_i == -1):
             print("Time Stamps could not be found" + base, header)
             return
-        # print(base)
         keep = get_keep_list(header)
-        print ("keep:", keep)
-        print ("Old Header:", header)
-
         header[start_time_i] = "Time"
         newHeader = [header[i] for i in keep]
-        print ("New Header", newHeader)
         writer.writerow(newHeader)
         for row in reader:
             newRow = []
             newRow = [(row[i] if (i < len(row)) else "") for i in keep]
-            # newRow.insert(0,get_sec(row[start_time_i]))
             writer.writerow(newRow)
     return
 
