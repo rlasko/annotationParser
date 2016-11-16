@@ -63,4 +63,4 @@ def change_time(src,dst):
             writer.writerow(row)
     return
 
-run_time_fix("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/New!! Time Format to Seconds")
+run_time_fix("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/Merge-test time fix")
