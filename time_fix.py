@@ -54,4 +54,4 @@ def fix(src, dst):
 
             writer.writerow(row)
 
-run_from_root("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR Formatted Files copy")
+run_from_root("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/Irrelevant/New SE Files/_Mix Cols Work 2/corrected_channels")

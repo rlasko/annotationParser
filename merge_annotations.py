@@ -20,11 +20,11 @@ def merge(origin):
             if ".DS" in other_folder: continue
             this_loc = origin + "/" + other_folder
             other_files = os.listdir(this_loc)
-            if  other_folder == new_name or "Tutoring" in other_folder: continue
+            if  other_folder == new_name: continue
             if filename not in other_files:
                 print ("Error!! Could not find file", filename, "in", other_folder)
                 continue
             copyfile(this_loc + "/" + filename, session_folder + "/" + str(i) + filename)
             i += 1
 
-merge("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/Formatted work Merge")
+merge("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/Formatted work final")

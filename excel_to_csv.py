@@ -43,7 +43,3 @@ def run(origin):
     name = os.path.dirname(origin) + "/converted2"
     if (not os.path.exists(name)): os.mkdir(name)
     convert(origin,name)
-
-# run("/Users/RaeLasko/Documents/CMU/ArticuLab/D1S1_codes.xlsx")
-# run_from_root("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files")
-run_from_root("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files/praise-temp")

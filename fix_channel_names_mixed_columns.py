@@ -59,4 +59,4 @@ def get_channels(origin,dest):
                 newRow[channel_start:end_of_unique] = [""] * num_of_unique_channels # delete from old location
             writer.writerow(newRow)
 
-run("/Users/RaeLasko/Documents/CMU/ArticuLab/TAR source files/mix-praise/csv-converted-manual")
+run("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/Irrelevant/New SE Files/_Mix Cols Work")

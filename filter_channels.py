@@ -79,4 +79,4 @@ def filter_channels(src, dst):
             writer.writerow(newRow)
     return
 
-run_from_root("/Users/RaeLasko/Documents/CMU/ArticuLab/Head Nods/corrected_channels")
+run_from_root("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/TA- need to merge/merged/corrected_channels")

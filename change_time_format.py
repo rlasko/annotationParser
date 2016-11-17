@@ -63,4 +63,4 @@ def change_time(src,dst):
             writer.writerow(row)
     return
 
-run_time_fix("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/Merge-test time fix")
+run_time_fix("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/TA- need to merge/merged/corrected_channels/_filtered")

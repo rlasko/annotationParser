@@ -1,7 +1,7 @@
 import csv
 import pprint
 
-csvPath = "/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/TAR source files/Delivery_styles_data.csv"
+csvPath = "/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/Irrelevant/TAR source files/Delivery_styles_data.csv"
 
 def dictionary():
     reader = csv.reader(open(csvPath))
