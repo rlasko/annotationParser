@@ -13,4 +13,4 @@ def standarize_paths(origin):
         for filename in os.listdir(origin):
             standarize_paths(origin + "/" + filename)
 
-standarize_paths("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/Formatted work final/_Head Nods")
+standarize_paths("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/_Tutoring Strategies/_timeFix")

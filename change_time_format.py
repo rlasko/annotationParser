@@ -51,16 +51,17 @@ def change_time(src,dst):
         # add_hour = False
         last = -1
         for row in reader:
-            seconds = get_second(row[0])
-            if seconds >= last:
-                last = seconds
-            else: # account for inconsistencies - some files didn't include hour field
-                seconds = 3600 + seconds
-                seconds = float(format(seconds, ".2f"))
-                last = seconds
+            if not (row[0].count(".") == 1 and row[0].count(":") == 0):
+                seconds = get_second(row[0])
+                if seconds >= last:
+                    last = seconds
+                else: # account for inconsistencies - some files didn't include hour field
+                    seconds = 3600 + seconds
+                    seconds = float(format(seconds, ".2f"))
+                    last = seconds
 
-            row[0] = seconds
+                row[0] = seconds
             writer.writerow(row)
     return
 
-run_time_fix("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/TA- need to merge/merged/corrected_channels/_filtered")
+run_time_fix("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/_Tutoring Strategies")
