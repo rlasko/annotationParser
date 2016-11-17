@@ -3,7 +3,7 @@ import csv
 import bisect
 from header import get_channels
 
-start_path = ""
+start_path = "/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/Standarized copy"
 
 def get_ref_dict():
     dictionary = dict()
@@ -15,19 +15,33 @@ def get_ref_dict():
 channel_reference_dict = get_ref_dict()
 
 def create_master_file(path,dictionary):
+    pass
     with open(path, "w") as csvfile:
         pass
 
 def start():
     assert(os.path.isdir(start_path))
     for folder in os.listdir(start_path):
+        if (".DS" in folder): continue
+        print (folder)
         folder_path = start_path + "/" + folder
         time_dict = dict()
         time_list = []
         for filename in os.listdir(folder_path):
+            if (".DS" in filename): continue
+            print(filename)
             file_path = folder_path + "/" + filename
             read_file_to_dict(file_path, time_dict, time_list)
-        create_master_file()
+        # create_master_file()
+
+def get_input():
+    user_input = ""
+    while "." not in user_input:
+        user_input = input("Help! Input here:")
+        if user_input == ".":
+            return "."
+        elif user_input in channel_reference_dict:
+            return user_input
 
 def read_file_to_dict(path, dictionary, time_list):
     reader = csv.reader(open(path))
@@ -38,32 +52,37 @@ def read_file_to_dict(path, dictionary, time_list):
         if (time not in dictionary):
             dictionary[time] = []
             bisect.insort(time_list, time)
-        for i in range(1, len(row)):
-            channel = row[i]
-            if channel not in ["" or " "]:
-                channel_name = channel.upper() if "g" not in channel else channel
-                if "tutor" in header[i].lower():
-                    channel_name += "_Tutor"
-                elif "tutee" in header[i].lower():
-                    channel_name += "_Tutee"
+        for index in range(1, len(row)):
+            channel = row[index].strip()
+            if channel in ["", " ", "0.0"] or len(channel) < 2: continue
+            channel_name = channel.split(",")
+            for i in range(len(channel_name)):
+                if (" " in channel_name[i]):
+                    channel_name.extend(channel_name[i].split(" "))
+                    channel_name.pop(i)
+            for i in range(len(channel_name)):
+                channel_name[i] = channel_name[i].strip()
+                if (channel_name[i] in ["", " "]): continue
+                # print("channel_name[i]", channel_name[i])
+                channel_name[i] = channel_name[i].upper() if "g" not in channel_name[i] else channel_name[i]
+                if "tutor" in header[index].lower():
+                    channel_name[i] += "_Tutor"
+                elif "tutee" in header[index].lower():
+                    channel_name[i] += "_Tutee"
                 else:
-                    print("Corresponding Header:", header[i], "Target:", channel)
-                    user_input = ""
-                    while "continue" not in user_input:
-                        user_input = input("Help!!")
+                    print("Corresponding Header:", header[i], ", Target:", channel_name[i])
+                    get_input()
                     continue
 
-                if (channel_name not in channel_reference_dict):
-                    user_input = ""
-                    skip = False
-                    while "continue" not in user_input and channel_name not in channel_reference_dict:
-                        user_input = input("Help!!")
-                        if user_input == "skip":
-                            skip = True
-                            break
-                        elif user_input in channel_reference_dict:
-                            channel_name = user_input
-                    if skip: continue
-                assert(channel_name not channel_reference_dict)
-                dictionary[time].append(channel_name)
-                
+                if (channel_name[i] not in channel_reference_dict):
+                    print("Could not match channel:", channel_name[i])
+                    user_input = get_input()
+                    if user_input == ".":
+                        continue
+                    elif (user_input in channel_reference_dict):
+                        channel_name[i] = user_input
+                    else:
+                        print("!!!!")
+            dictionary[time].extend(channel_name)
+
+start()
