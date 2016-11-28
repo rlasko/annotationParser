@@ -4,7 +4,7 @@ import bisect
 import copy
 from header import get_channels
 
-start_path = "/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/New Standarized"
+start_path = "/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/Standarized work"
 
 def get_ref_dict():
     dictionary = dict()
@@ -17,21 +17,34 @@ def get_ref_dict():
 channel_reference_dict = get_ref_dict()
 channels = get_channels()
 
+def remove_row(row):
+    for e in row:
+        if e == "1":
+            return False
+    return True
+
 # actually creates the master file using all the info
 def create_master_file(path, dictionary, time_list):
     with open(path, "w") as csvfile:
         headerRow = ["Time"] + copy.deepcopy(channels)
+        headerRow = headerRow[:-8] # remove eyegaze
         writer = csv.writer(csvfile, delimiter = ",")
         writer.writerow(headerRow)
         for time in time_list:
-            row = [time] + dictionary[time]
+            val = []
+            for e in dictionary[time]:
+                value = "1" if e == "x" else "0" # make zero or one
+                val.append(value)
+            val = val[:-8] # remove eyegaze
+            if (remove_row(val)): continue
+            row = [time] + val
             writer.writerow(row)
 
 # start parsing files
 def start():
     assert(os.path.isdir(start_path))
     for folder in os.listdir(start_path):
-        if (".DS" in folder or ".csv" in folder): continue
+        if (".DS" in folder or ".csv" in folder or "output" in folder): continue
         print (folder)
         folder_path = start_path + "/" + folder
         time_dict = dict()
@@ -41,7 +54,9 @@ def start():
             print(filename)
             file_path = folder_path + "/" + filename
             read_file_to_dict(file_path, time_dict, time_list)
-        create_master_file(folder_path + ".csv", time_dict, time_list)
+        outputPath = start_path + "/output_annotations_only/" + folder + ".csv"
+        if (not os.path.exists(start_path + "/output_annotations_only")): os.makedirs(start_path + "/output_annotations_only")
+        create_master_file(outputPath , time_dict, time_list)
 
 # prompt for user help
 # . skips
@@ -104,6 +119,7 @@ def read_file_to_dict(path, dictionary, time_list):
                         print("!!!!")
             # add to dictionary
             for channel in channel_name:
+                if ("g" in channel): continue # skip eye gaze
                 if (channel in channel_reference_dict):
                     index = channel_reference_dict[channel]
                     dictionary[time][index] = "x"

@@ -1,0 +1,58 @@
+<config>
+<option name="saveRules_new" value="rules.xml" />
+<data path = "C:\Users\lsmith1\Desktop\Rae\Titar_ouput_folder\Titar_ouput_folder\d1s1.evt" type = "train"/>
+
+<option name="threads" value="1" /> <!-- Number of thread available (uses -1 for a correct debug printing) -->
+<option name="sub_threads" value="5" /> <!-- number of threads used in the inner loop -->
+<option name="debugLevel" value="1" />  <!-- Level of verbose of the algorithm -->
+<option name="stop_at_every_loop" value="0" />  <!-- Stop the algorithm at every loop and wait for user confirmation -->
+
+<!-- rule generation parameters -->
+
+<option name="numCase" value="20" />  <!-- Number of cases of the histogram -->
+<option name="maxPast" value="-60" />  <!-- Bounds of the histogram -->
+<option name="maxFuture" value="0" />  <!-- Bounds of the histogram -->
+
+<option name="histogram" value="Unif" /> <!-- Type of histogram ?!?! -->
+<option name="maxConditions" value="8" />
+
+<!-- rules restrictions - Needs fine tuning-->
+<option name="minConfidence" value="0.3" />
+<option name="minCoverage" value="0.05" />
+<option name="minNumberOfUse" value="10" />
+
+<!-- research parameters -->
+<option name="maxCreatedRules" value="-1" />
+
+<!-- Algo stopping criteria -->
+
+<option name="maxLoop" value="-1" />
+<option name="maxTimeAfterInit" value="30" />
+
+<option name="allowNonConnextCondition" value="0" />
+
+<option name="intermediatesmoothing" value="0" />
+<option name="finalsmoothing" value="0" />
+<option name="division" value="1" />
+<option name="allowNonConnextCondition" value="0"/>
+
+<option name="maxTests" value="50000" />
+<option name="maxEvauations" value="50000" />
+
+<option name="maxPValue" value="2" />
+
+<option name="datasetTimeout" value="43100" />
+
+<!-- Input files -->
+
+<!-- Body/head rule configuration -->
+
+<outputEvent>
+	<predicate name="scalar.\w+" />
+</outputEvent>
+
+<inputEvent>
+	<predicate name="event.\w+" />
+</inputEvent>
+
+</config>
