@@ -3,9 +3,9 @@ import csv
 import bisect
 import copy
 from header import get_channels
-from scalar_rapport_info_DELTA_ONLY import get_rapport_dict
+from scalar_rapport_info_DELTA_With_values import get_rapport_dict
 
-start_path = "/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/EVT_Delta_Only"
+start_path = "/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/Values_Grid"
 rapport_data = get_rapport_dict("/Users/RaeLasko/Documents/CMU/ArticuLab/File cleaning/2013_thin-slice_rapport_ratings.csv")
 
 def get_ref_dict():

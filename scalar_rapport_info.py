@@ -12,6 +12,7 @@ def get_rapport_dict(path):
     for row in reader:
         for i in range(len(row)):
             if (row[i].strip() != ""):
+                if int(row[i].strip()) == 0: continue
                 string = str(rapport_time) + " " + "scalar.Rapport" + row[i].strip()
                 rapport_dict[header[i]].append(string)
         rapport_time += 30

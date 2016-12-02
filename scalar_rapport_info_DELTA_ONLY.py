@@ -15,7 +15,9 @@ def get_rapport_dict(path):
             if (row[i].strip() != ""):
                 last = last_row[i].strip() if last_row != [] else "0"
                 curr = row[i].strip()
-                val =  str(int(curr) - int(last))
+                if int(last) == 0 or int(curr) == 0: continue
+                val = int(curr) - int(last)
+                val = str(val) if val >= 0 else "n" + str(abs(val))
                 string = str(rapport_time) + " " + "scalar.Rapport" + val
                 rapport_dict[header[i]].append(string)
         last_row = row
