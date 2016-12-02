@@ -1,6 +1,11 @@
 import os
 import csv
 
+friends = ["D2", "D3", "D4", "D10", "D13", "D15"]
+strangers = ["D1", "D7", "D8", "D9", "D14", "D16"]
+
+mode = strangers
+
 def get_rapport_dict(path):
     reader = csv.reader(open(path))
     header = next(reader)
@@ -11,6 +16,10 @@ def get_rapport_dict(path):
     last_row = []
     for row in reader:
         for i in range(len(row)):
+            if header[i].split("S")[0] not in mode:
+                print (header[i].split("S")[0])
+                continue
+
             if (row[i].strip() != ""):
                 last = last_row[i].strip() if last_row != [] else "0"
                 curr = row[i].strip()
@@ -35,7 +44,7 @@ def get_rapport_dict(path):
                 rapport_dict_delta_only["Rapport" + val] += 1
         last_row = row
 
-    with open(os.path.dirname(path) + "/histogram_data.csv", "w") as csvfile:
+    with open(os.path.dirname(path) + "/histogram_data_strangers.csv", "w") as csvfile:
         writer = csv.writer(csvfile, delimiter = ",")
         for i in range(max(len(rapport_dict_delta_only), len(rapport_dict_values_only), len(rapport_dict_delta_values))):
             row = [""] * 8
