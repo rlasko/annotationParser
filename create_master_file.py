@@ -27,7 +27,7 @@ def remove_row(row):
 def create_master_file(path, dictionary, time_list):
     with open(path, "w") as csvfile:
         headerRow = ["Time"] + copy.deepcopy(channels)
-        headerRow = headerRow[:-8] # remove eyegaze
+        # headerRow = headerRow[:-8] # remove eyegaze
         writer = csv.writer(csvfile, delimiter = ",")
         writer.writerow(headerRow)
         for time in time_list:
@@ -35,7 +35,7 @@ def create_master_file(path, dictionary, time_list):
             for e in dictionary[time]:
                 value = "1" if e == "x" else "0" # make zero or one
                 val.append(value)
-            val = val[:-8] # remove eyegaze
+            # val = val[:-8] # remove eyegaze
             if (remove_row(val)): continue
             row = [time] + val
             writer.writerow(row)
@@ -88,6 +88,9 @@ def read_file_to_dict(path, dictionary, time_list):
             # some entries have more than one annotation
             channel_name = channel.split(",")
             for i in range(len(channel_name)):
+                if ("intimacy" in header[index].lower()):
+                    if ("IL" in channel_name[i]):
+                        channel_name[i] = channel_name[i].replace("IL", "LLI")
                 if (" " in channel_name[i]):
                     channel_name.extend(channel_name[i].split(" "))
                     channel_name.pop(i)
@@ -119,7 +122,7 @@ def read_file_to_dict(path, dictionary, time_list):
                         print("!!!!")
             # add to dictionary
             for channel in channel_name:
-                if ("g" in channel): continue # skip eye gaze
+                # if ("g" in channel): continue # skip eye gaze
                 if (channel in channel_reference_dict):
                     index = channel_reference_dict[channel]
                     dictionary[time][index] = "x"
